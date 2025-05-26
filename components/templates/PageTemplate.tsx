@@ -14,7 +14,7 @@ const PageTemplate = ({
   bgClass,
   allowUnauthenticated = false,
 }: CleanPageProps) => {
-  const baseClasses = `bg-center bg-ev-main-bg bg-fixed bg-cover text-ev-text min-h-screen w-screen font-mono gap-5 flex flex-col items-center h-[100vh] ${bgClass || ""}`;
+  const baseClasses = `bg-center bg-white bg-fixed bg-cover text-black min-h-screen w-screen font-mono gap-5 flex flex-col items-center h-[100vh] ${bgClass || ""}`;
 
   return <main className={baseClasses}>{children}</main>;
 };

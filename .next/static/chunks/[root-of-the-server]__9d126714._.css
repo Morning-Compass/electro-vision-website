@@ -118,7 +118,8 @@
 
 @layer theme {
   :root, :host {
-    --color-blue-700: oklch(48.8% .243 264.376);
+    --color-red-600: oklch(57.7% .245 27.325);
+    --color-green-600: oklch(62.7% .194 149.214);
     --color-black: #000;
     --color-white: #fff;
     --spacing: .25rem;
@@ -126,12 +127,17 @@
     --text-sm--line-height: calc(1.25 / .875);
     --text-base: 1rem;
     --text-base--line-height: calc(1.5 / 1);
-    --text-2xl: 1.5rem;
-    --text-2xl--line-height: calc(2 / 1.5);
+    --text-xl: 1.25rem;
+    --text-xl--line-height: calc(1.75 / 1.25);
+    --text-3xl: 1.875rem;
+    --text-3xl--line-height: calc(2.25 / 1.875);
+    --text-4xl: 2.25rem;
+    --text-4xl--line-height: calc(2.5 / 2.25);
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
-    --radius-lg: .5rem;
+    --animate-spin: spin 1s linear infinite;
+    --animate-pulse: pulse 2s cubic-bezier(.4, 0, .6, 1) infinite;
     --default-transition-duration: .15s;
     --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     --default-font-family: var(--font-geist-sans);
@@ -340,10 +346,6 @@
     margin-bottom: calc(var(--spacing) * 2);
   }
 
-  .mb-4 {
-    margin-bottom: calc(var(--spacing) * 4);
-  }
-
   .flex {
     display: flex;
   }
@@ -368,8 +370,8 @@
     min-height: 100vh;
   }
 
-  .w-\[100vw\] {
-    width: 100vw;
+  .w-10 {
+    width: calc(var(--spacing) * 10);
   }
 
   .w-full {
@@ -378,6 +380,14 @@
 
   .w-screen {
     width: 100vw;
+  }
+
+  .animate-pulse {
+    animation: var(--animate-pulse);
+  }
+
+  .animate-spin {
+    animation: var(--animate-spin);
   }
 
   .list-inside {
@@ -424,6 +434,10 @@
     gap: calc(var(--spacing) * 5);
   }
 
+  .gap-6 {
+    gap: calc(var(--spacing) * 6);
+  }
+
   .gap-16 {
     gap: calc(var(--spacing) * 16);
   }
@@ -442,10 +456,6 @@
 
   .rounded-full {
     border-radius: 3.40282e38px;
-  }
-
-  .rounded-lg {
-    border-radius: var(--radius-lg);
   }
 
   .border {
@@ -486,6 +496,10 @@
     background-color: var(--foreground);
   }
 
+  .bg-white {
+    background-color: var(--color-white);
+  }
+
   .bg-cover {
     background-size: cover;
   }
@@ -514,10 +528,6 @@
     padding-block: calc(var(--spacing) * .5);
   }
 
-  .py-2 {
-    padding-block: calc(var(--spacing) * 2);
-  }
-
   .pb-20 {
     padding-bottom: calc(var(--spacing) * 20);
   }
@@ -538,9 +548,9 @@
     font-family: var(--font-geist-mono);
   }
 
-  .text-2xl {
-    font-size: var(--text-2xl);
-    line-height: var(--tw-leading, var(--text-2xl--line-height));
+  .text-3xl {
+    font-size: var(--text-3xl);
+    line-height: var(--tw-leading, var(--text-3xl--line-height));
   }
 
   .text-sm {
@@ -551,6 +561,11 @@
   .text-sm\/6 {
     font-size: var(--text-sm);
     line-height: calc(var(--spacing) * 6);
+  }
+
+  .text-xl {
+    font-size: var(--text-xl);
+    line-height: var(--tw-leading, var(--text-xl--line-height));
   }
 
   .font-bold {
@@ -573,23 +588,29 @@
     letter-spacing: -.01em;
   }
 
+  .break-all {
+    word-break: break-all;
+  }
+
   .text-background {
     color: var(--background);
   }
 
-  .text-white {
-    color: var(--color-white);
+  .text-black {
+    color: var(--color-black);
+  }
+
+  .text-green-600 {
+    color: var(--color-green-600);
+  }
+
+  .text-red-600 {
+    color: var(--color-red-600);
   }
 
   .antialiased {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  .transition {
-    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, visibility, content-visibility, overlay, pointer-events;
-    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-    transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
 
   .transition-colors {
@@ -613,12 +634,6 @@
   @media (hover: hover) {
     .hover\:bg-\[\#f2f2f2\]:hover {
       background-color: #f2f2f2;
-    }
-  }
-
-  @media (hover: hover) {
-    .hover\:bg-blue-700:hover {
-      background-color: var(--color-blue-700);
     }
   }
 
@@ -673,6 +688,13 @@
   @media (width >= 40rem) {
     .sm\:text-left {
       text-align: left;
+    }
+  }
+
+  @media (width >= 40rem) {
+    .sm\:text-4xl {
+      font-size: var(--text-4xl);
+      line-height: var(--tw-leading, var(--text-4xl--line-height));
     }
   }
 
@@ -835,6 +857,18 @@ body {
 @property --tw-drop-shadow-size {
   syntax: "*";
   inherits: false
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
 }
 
 
