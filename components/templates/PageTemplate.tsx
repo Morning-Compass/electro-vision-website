@@ -1,22 +1,38 @@
 "use client";
 
-import Link from "next/link";
+import useUserContext from "@/ev-contexts/userContextProvider";
 import { ReactNode } from "react";
 
 type CleanPageProps = {
   children: ReactNode;
   bgClass?: string;
-  allowUnauthenticated?: boolean;
+  //bgProperty?: string;
 };
 
 const PageTemplate = ({
   children,
-  bgClass,
-  allowUnauthenticated = false,
+  bgClass = undefined,
+  //bgProperty = undefined,
 }: CleanPageProps) => {
-  const baseClasses = `bg-center bg-white bg-fixed bg-cover text-black min-h-screen w-screen font-mono gap-5 flex flex-col items-center h-[100vh] ${bgClass || ""}`;
-
-  return <main className={baseClasses}>{children}</main>;
+  const { User } = useUserContext();
+  return (
+    <>
+      {bgClass === undefined ? (
+        <main
+          className={`bg-center bg-fixed bg-cover text-youai-text min-h-screen w-screen font-mono gap-5 theme-${User.theme} flex flex-col items-center`}
+          style={{ backgroundImage: "url('warsaw.jpg')" }}
+        >
+          {children}
+        </main>
+      ) : (
+        <main
+          className={`bg-center bg-fixed bg-cover text-youai-text min-h-screen w-screen font-mono gap-5 theme-${User.theme} flex flex-col items-center ${bgClass}`}
+        >
+          {children}
+        </main>
+      )}
+    </>
+  );
 };
 
 export default PageTemplate;
